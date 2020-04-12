@@ -10,7 +10,7 @@ const testData = [
 
 const CardList = (props) => (
     <div>
-        {testData.map(profile => <Card  {...profile} />)}
+        {props.profiles.map(profile => <Card  {...profile}/>)}
         {/*<Card {...testData[0]}/>*/}
         {/*<Card {...testData[1]}/>*/}
         {/*<Card {...testData[2]}/>*/}
@@ -23,8 +23,6 @@ const CardList = (props) => (
 class Card extends React.Component {
     render() {
         const profile = this.props;
-        console.log(this.props);
-
         return (
 
             <div className='github-profile'>
@@ -41,10 +39,18 @@ class Card extends React.Component {
 }
 
 class Form extends React.Component {
+
+    userNameInput = React.createRef();
+    handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(
+            this.userNameInput.current.value
+        )
+    };
     render() {
         return (
-          <form action="">
-              <input type="text" placeholder="Github Username "/>
+          <form onSubmit={this.handleSubmit}>
+              <input type="text" placeholder="Github Username " ref={this.userNameInput} required/>
               <button>Add Card</button>
           </form>
         );
@@ -53,13 +59,21 @@ class Form extends React.Component {
 
 
 class App extends React.Component {
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         profiles: testData,
+    //     };
+    // }
+    state = {
+      profiles: testData,
+    };
     render() {
-        console.log(this.props);
         return (
             <div>
                 <div className='header'>{this.props.title}</div>
                 <Form />
-                <CardList />
+                <CardList profiles={this.state.profiles} />
 
             </div>
 
