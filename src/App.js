@@ -10,16 +10,20 @@ const testData = [
 
 const CardList = (props) => (
     <div>
-        <Card {...testData[0]}/>
-        <Card {...testData[1]}/>
-        <Card {...testData[2]}/>
+        {testData.map(profile => <Card  {...profile} />)}
+        {/*<Card {...testData[0]}/>*/}
+        {/*<Card {...testData[1]}/>*/}
+        {/*<Card {...testData[2]}/>*/}
     </div>
 
 );
 
+
+
 class Card extends React.Component {
     render() {
         const profile = this.props;
+        console.log(this.props);
 
         return (
 
@@ -36,13 +40,27 @@ class Card extends React.Component {
     }
 }
 
+class Form extends React.Component {
+    render() {
+        return (
+          <form action="">
+              <input type="text" placeholder="Github Username "/>
+              <button>Add Card</button>
+          </form>
+        );
+    }
+}
+
 
 class App extends React.Component {
     render() {
+        console.log(this.props);
         return (
             <div>
                 <div className='header'>{this.props.title}</div>
+                <Form />
                 <CardList />
+
             </div>
 
 
